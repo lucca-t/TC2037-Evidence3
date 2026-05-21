@@ -1,0 +1,33 @@
+@startuml
+title BerSU Ball - Logical Model
+
+start
+:Receive two lists of skills;
+:Sort both lists ascending;
+:Call max_pairs(Boys, Girls, Pairs);
+
+while (Both lists are non-empty?) is (yes)
+  :Compare heads B and G;
+
+  if (abs(B - G) <= 1?) then (yes)
+    :Count one pair;
+    :Consume both heads;
+  else (no)
+    if (B < G - 1?) then (yes)
+      :Consume boy head;
+    else (no)
+      :Consume girl head;
+    endif
+  endif
+endwhile (no)
+
+:Return total pairs;
+stop
+
+legend right
+  The diagram follows the same greedy logic used in the Prolog predicate.
+  Each decision reduces one of the lists, which guarantees linear traversal
+  after sorting.
+endlegend
+
+@enduml
