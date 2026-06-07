@@ -1,33 +1,31 @@
 @startuml
-title BerSU Ball - Logical Model
+title BerSU Ball - Logical State Model
 
-start
-:Receive two lists of skills;
-:Sort both lists ascending;
-:Call max_pairs(Boys, Girls, Pairs);
+skinparam state {
+  BackgroundColor White
+  BorderColor Black
+  ArrowColor Black
+  FontName Arial
+}
 
-while (Both lists are non-empty?) is (yes)
-  :Compare heads B and G;
+[*] --> active : Initialize\nstate(Boys_sorted, Girls_sorted)
 
-  if (abs(B - G) <= 1?) then (yes)
-    :Count one pair;
-    :Consume both heads;
-  else (no)
-    if (B < G - 1?) then (yes)
-      :Consume boy head;
-    else (no)
-      :Consume girl head;
-    endif
-  endif
-endwhile (no)
+state "active: state([B | Bs], [G | Gs])" as active
 
-:Return total pairs;
-stop
+active --> active : match / |B-G|≤1
+active --> active : skip_boy / B<G-1
+active --> active : skip_girl / B>G+1
 
-legend right
-  The diagram follows the same greedy logic used in the Prolog predicate.
-  Each decision reduces one of the lists, which guarantees linear traversal
-  after sorting.
-endlegend
+state "F: Final States" as F {
+  state "state([], _)" as empty_boys
+  state "state(_, [])" as empty_girls
+}
+
+active --> empty_boys : Boys list exhausted
+active --> empty_girls : Girls list exhausted
+
+empty_boys --> [*]
+empty_girls --> [*]
+
 
 @enduml
