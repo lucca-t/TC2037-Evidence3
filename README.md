@@ -1,5 +1,7 @@
-# Evidence 4 - Demonstration of a Programming Paradigm
-### Lucca Traslosheros Abascal
+# Evidence 3 - Demonstration of a Programming Paradigm
+
+**Author:** Lucca Traslosheros Abascal (A01713944)  
+**Course:** TC2037 Implementation of Computational Methods  
 
 ## Context & Description
 
